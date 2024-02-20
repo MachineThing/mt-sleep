@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.R.attr.value
 import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
@@ -16,6 +17,7 @@ import android.util.Log
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+
 
 class Preferences : PreferenceFragmentCompat() {
     companion object {
@@ -67,6 +69,9 @@ class Preferences : PreferenceFragmentCompat() {
             } else {
                 Log.wtf(TAG, "sharedPreferences is null")
             }
+        } else if (preference.key == "enable_dnd") {
+            val tasmotaIntent = Intent(context, TasmotaActivity::class.java)
+            context?.startActivity(tasmotaIntent)
         }
         return super.onPreferenceTreeClick(preference)
     }

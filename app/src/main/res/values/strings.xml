@@ -1,5 +1,4 @@
-<resources
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" translatable="false">Plees Tracker</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
@@ -47,8 +46,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="calendar_permission_required">Calendar permission required</string>
     <plurals name="imported_items">
-      <item quantity="one">Imported %d item</item>
-      <item quantity="other">Imported %d items</item>
+        <item quantity="one">Imported %d item</item>
+        <item quantity="other">Imported %d items</item>
     </plurals>
     <string name="exported_event_description">Exported from Plees Tracker</string>
     <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
@@ -69,6 +68,7 @@
     <string name="settings_enable_dnd_question_message">Please allow Do Not Disturb permissions for this app on the next screen.</string>
     <string name="settings_enable_dnd_question_ok">OK</string>
     <string name="settings_enable_dnd_question_cancel">Cancel</string>
+    <string name="settings_tasmota">Tasmota Devices</string>
     <string name="last_week">Last week</string>
     <string name="last_two_weeks">Last two weeks</string>
     <string name="last_month">Last month</string>
