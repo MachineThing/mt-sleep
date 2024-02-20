@@ -25,6 +25,8 @@ class PreferencesActivity : AppCompatActivity() {
             .commit()
         setContentView(R.layout.settings)
         DataModel.preferencesActivity = this
+
+        title = getString(R.string.app_title)
     }
 
     override fun onDestroy() {

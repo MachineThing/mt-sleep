@@ -243,6 +243,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 fabText.visibility = View.VISIBLE
             }
         }
+
+        title = getString(R.string.app_title)
+
         recyclerView.setOnScrollChangeListener(listener)
 
         // See if the activity is triggered from the widget. If so, toggle the start/stop state.
