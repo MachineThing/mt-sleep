@@ -19,6 +19,7 @@ class PreferencesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // To my knowledge you have to use getSystemService in activity code
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.settings_container, Preferences())

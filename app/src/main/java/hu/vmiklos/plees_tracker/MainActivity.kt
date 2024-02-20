@@ -7,6 +7,8 @@
 package hu.vmiklos.plees_tracker
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -316,7 +318,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
         val startStopText = findViewById<TextView>(R.id.start_stop_text)
 
+        val dndManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val dndEnabled = preferences.getBoolean("enable_dnd", false)
+
         if (DataModel.start != null && DataModel.stop != null) {
+            // When user stops tracking sleep
+            if (dndManager.isNotificationPolicyAccessGranted and dndEnabled) {
+                // Restore Do Not Disturb status when user started tracking
+                dndManager.setInterruptionFilter(preferences.getInt("current_dnd", NotificationManager.INTERRUPTION_FILTER_ALL))
+            } else {
+                Log.w(TAG, "Failed to disable DND, permissions not enabled")
+            }
+
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
@@ -328,7 +342,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             return
         }
+
         DataModel.start?.let { start ->
+            // When user starts tracking sleep
+            preferences.edit()
+                .putInt("current_dnd", dndManager.currentInterruptionFilter)
+                .apply() // Saves current Do Not Disturb status
+            if (dndManager.isNotificationPolicyAccessGranted and dndEnabled) {
+                dndManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY)
+            } else {
+                Log.w(TAG, "Failed to enable DND, permissions not enabled")
+            }
             status.text = String.format(
                 getString(R.string.sleeping_since),
                 DataModel.formatTimestamp(start, DataModel.getCompactView())
